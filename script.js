@@ -1,238 +1,74 @@
-*{
-  box-sizing:border-box;
-}
+const flag = c => `https://flagcdn.com/w40/${c}.png`;
 
-body{
-  margin:0;
-  font-family:Inter,Segoe UI,Arial,sans-serif;
-  background:#f3f6fb;
-  color:#111827;
-}
+let currentGroup = "A";
+let currentStage = "R32";
 
-.app{
-  max-width:1180px;
-  margin:auto;
-  padding:18px;
-}
+const rows = [
+[1,"A","Jueves 11 de Junio","16:00","México","Sudáfrica","mx","za",2,0],
+[2,"A","Jueves 11 de Junio","23:00","República de Corea","República Checa","kr","cz",2,1],
+[3,"A","Jueves 18 de Junio","13:00","República Checa","Sudáfrica","cz","za",null,null],
+[4,"A","Jueves 18 de Junio","22:00","México","República de Corea","mx","kr",null,null],
+[5,"A","Miércoles 24 de Junio","22:00","México","República Checa","mx","cz",null,null],
+[6,"A","Miércoles 24 de Junio","22:00","Sudáfrica","República de Corea","za","kr",null,null],
 
-.main-header{
-  background:linear-gradient(135deg,#061b52,#0d47a1,#14b8a6);
-  color:white;
-  border-radius:18px;
-  padding:22px 26px;
-  margin-bottom:16px;
-  box-shadow:0 10px 25px rgba(0,0,0,.18);
-}
+[7,"B","Viernes 12 de Junio","16:00","Canadá","Bosnia y Herzegovina","ca","ba",1,1],
+[8,"B","Sábado 13 de Junio","16:00","Catar","Suiza","qa","ch",1,1],
+[9,"B","Jueves 18 de Junio","16:00","Suiza","Bosnia y Herzegovina","ch","ba",null,null],
+[10,"B","Jueves 18 de Junio","19:00","Canadá","Catar","ca","qa",null,null],
+[11,"B","Miércoles 24 de Junio","16:00","Canadá","Suiza","ca","ch",null,null],
+[12,"B","Miércoles 24 de Junio","16:00","Bosnia y Herzegovina","Catar","ba","qa",null,null],
 
-.main-header h1{
-  margin:0;
-  font-size:34px;
-  font-weight:900;
-  letter-spacing:.5px;
-}
+[13,"C","Sábado 13 de Junio","19:00","Brasil","Marruecos","br","ma",1,1],
+[14,"C","Sábado 13 de Junio","22:00","Haití","Escocia","ht","gb-sct",0,1],
+[15,"C","Viernes 19 de Junio","19:00","Escocia","Marruecos","gb-sct","ma",null,null],
+[16,"C","Viernes 19 de Junio","21:30","Brasil","Haití","br","ht",null,null],
+[17,"C","Miércoles 24 de Junio","19:00","Escocia","Brasil","gb-sct","br",null,null],
+[18,"C","Miércoles 24 de Junio","19:00","Marruecos","Haití","ma","ht",null,null],
 
-.main-header p{
-  margin:8px 0 0;
-  font-size:15px;
-  opacity:.95;
-}
+[19,"D","Viernes 12 de Junio","22:00","Estados Unidos","Paraguay","us","py",4,1],
+[20,"D","Domingo 14 de Junio","01:00","Australia","Turquía","au","tr",2,0],
+[21,"D","Viernes 19 de Junio","16:00","Estados Unidos","Australia","us","au",null,null],
+[22,"D","Sábado 20 de Junio","00:00","Turquía","Paraguay","tr","py",null,null],
+[23,"D","Jueves 25 de Junio","23:00","Estados Unidos","Turquía","us","tr",null,null],
+[24,"D","Jueves 25 de Junio","23:00","Paraguay","Australia","py","au",null,null],
 
-.menu{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:18px;
-  position:sticky;
-  top:0;
-  background:#f3f6fb;
-  padding:10px 0;
-  z-index:10;
-}
+[25,"E","Domingo 14 de Junio","14:00","Alemania","Curazao","de","cw",7,1],
+[26,"E","Domingo 14 de Junio","20:00","Costa de Marfil","Ecuador","ci","ec",null,null],
+[27,"E","Sábado 20 de Junio","17:00","Alemania","Costa de Marfil","de","ci",null,null],
+[28,"E","Sábado 20 de Junio","21:00","Ecuador","Curazao","ec","cw",null,null],
+[29,"E","Jueves 25 de Junio","17:00","Ecuador","Alemania","ec","de",null,null],
+[30,"E","Jueves 25 de Junio","17:00","Curazao","Costa de Marfil","cw","ci",null,null],
 
-.menu button,
-.group-buttons button,
-.stage-buttons button,
-.calc-btn{
-  border:0;
-  border-radius:999px;
-  padding:10px 16px;
-  cursor:pointer;
-  font-weight:800;
-  font-size:14px;
-}
+[31,"F","Domingo 14 de Junio","17:00","Países Bajos","Japón","nl","jp",null,null],
+[32,"F","Domingo 14 de Junio","23:00","Suecia","Túnez","se","tn",null,null],
+[33,"F","Sábado 20 de Junio","14:00","Países Bajos","Suecia","nl","se",null,null],
+[34,"F","Domingo 21 de Junio","01:00","Túnez","Japón","tn","jp",null,null],
+[35,"F","Jueves 25 de Junio","20:00","Japón","Suecia","jp","se",null,null],
+[36,"F","Jueves 25 de Junio","20:00","Túnez","Países Bajos","tn","nl",null,null],
 
-.menu button{
-  background:white;
-  color:#0f172a;
-  border:1px solid #dbe3ef;
-}
+[37,"G","Lunes 15 de Junio","16:00","Bélgica","Egipto","be","eg",null,null],
+[38,"G","Lunes 15 de Junio","22:00","RI de Irán","Nueva Zelanda","ir","nz",null,null],
+[39,"G","Domingo 21 de Junio","16:00","Bélgica","RI de Irán","be","ir",null,null],
+[40,"G","Domingo 21 de Junio","22:00","Nueva Zelanda","Egipto","nz","eg",null,null],
+[41,"G","Sábado 27 de Junio","00:00","Egipto","RI de Irán","eg","ir",null,null],
+[42,"G","Sábado 27 de Junio","00:00","Nueva Zelanda","Bélgica","nz","be",null,null],
 
-.menu button.active{
-  background:#e11d48;
-  color:white;
-  border-color:#e11d48;
-}
+[43,"H","Lunes 15 de Junio","13:00","España","Cabo Verde","es","cv",null,null],
+[44,"H","Lunes 15 de Junio","19:00","Arabia Saudí","Uruguay","sa","uy",null,null],
+[45,"H","Domingo 21 de Junio","13:00","España","Arabia Saudí","es","sa",null,null],
+[46,"H","Domingo 21 de Junio","19:00","Uruguay","Cabo Verde","uy","cv",null,null],
+[47,"H","Viernes 26 de Junio","21:00","Cabo Verde","Arabia Saudí","cv","sa",null,null],
+[48,"H","Viernes 26 de Junio","21:00","Uruguay","España","uy","es",null,null],
 
-h2{
-  margin:8px 0 14px;
-  font-size:24px;
-}
+[49,"I","Martes 16 de Junio","16:00","Francia","Senegal","fr","sn",null,null],
+[50,"I","Martes 16 de Junio","19:00","Irak","Noruega","iq","no",null,null],
+[51,"I","Lunes 22 de Junio","18:00","Francia","Irak","fr","iq",null,null],
+[52,"I","Lunes 22 de Junio","21:00","Noruega","Senegal","no","sn",null,null],
+[53,"I","Viernes 26 de Junio","16:00","Noruega","Francia","no","fr",null,null],
+[54,"I","Viernes 26 de Junio","16:00","Senegal","Irak","sn","iq",null,null],
 
-h3{
-  margin:12px 0;
-  font-size:20px;
-}
-
-.match-card{
-  background:white;
-  border-radius:16px;
-  padding:14px 16px;
-  margin-bottom:12px;
-  box-shadow:0 3px 12px rgba(15,23,42,.08);
-  border:1px solid #e5eaf2;
-}
-
-.match-info{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  font-size:13px;
-  color:#475569;
-  margin-bottom:12px;
-  font-weight:700;
-}
-
-.match-teams{
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  gap:14px;
-}
-
-.team{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:17px;
-  font-weight:800;
-}
-
-.team:last-child{
-  justify-content:flex-end;
-  text-align:right;
-}
-
-.flag{
-  width:30px;
-  height:22px;
-  object-fit:cover;
-  border-radius:3px;
-  box-shadow:0 0 0 1px #ddd;
-}
-
-.inputs-forecast{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  font-weight:800;
-  color:#334155;
-}
-
-.input-goals{
-  width:46px;
-  height:38px;
-  text-align:center;
-  font-size:18px;
-  font-weight:800;
-  border:2px solid #2563eb;
-  border-radius:10px;
-  outline:none;
-}
-
-.input-goals:focus{
-  border-color:#e11d48;
-}
-
-.real-result-zone{
-  margin-top:12px;
-  background:#fff7ed;
-  border:1px solid #fed7aa;
-  color:#7c2d12;
-  padding:8px 10px;
-  border-radius:10px;
-  font-size:13px;
-  font-weight:600;
-}
-
-.group-buttons,
-.stage-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-bottom:14px;
-}
-
-.group-buttons button,
-.stage-buttons button{
-  background:#0d47a1;
-  color:white;
-}
-
-.group-buttons button:hover,
-.stage-buttons button:hover{
-  background:#e11d48;
-}
-
-.score-box{
-  background:white;
-  border-radius:16px;
-  padding:18px;
-  max-width:420px;
-  box-shadow:0 3px 12px rgba(15,23,42,.08);
-  border:1px solid #e5eaf2;
-}
-
-.score-box p{
-  font-size:18px;
-  margin:10px 0;
-}
-
-.calc-btn{
-  margin-top:14px;
-  background:#e11d48;
-  color:white;
-}
-
-.section{
-  display:none;
-}
-
-.section.active{
-  display:block;
-}
-
-@media(max-width:720px){
-  .app{
-    padding:10px;
-  }
-
-  .main-header h1{
-    font-size:25px;
-  }
-
-  .match-teams{
-    grid-template-columns:1fr;
-    text-align:center;
-  }
-
-  .team,
-  .team:last-child{
-    justify-content:center;
-    text-align:center;
-  }
-
-  .inputs-forecast{
-    justify-content:center;
-  }
-}
+[55,"J","Martes 16 de Junio","22:00","Argentina","Argelia","ar","dz",null,null],
+[56,"J","Miércoles 17 de Junio","01:00","Austria","Jordania","at","jo",null,null],
+[57,"J","Lunes 22 de Junio","14:00","Argentina","Austria","ar","at",null,null],
+[58,"J","Martes 23 de Junio","00:00","Jordania","Argelia","jo","dz",null,null],
+[59,"J","Sábado 27 de Junio","23:00","Argelia","Austria
