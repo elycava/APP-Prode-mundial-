@@ -1,0 +1,138 @@
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#001d5b,#0047ab,#00a8ff);
+  color:white;
+}
+
+.app{
+  max-width:1400px;
+  margin:auto;
+  padding:20px;
+}
+
+.main-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  background:rgba(255,255,255,.12);
+  border-radius:24px;
+  padding:24px;
+  margin-bottom:22px;
+}
+
+.main-header h1{
+  font-size:52px;
+  margin:0;
+  font-weight:900;
+  text-shadow:0 0 12px #00d9ff;
+}
+
+.main-header p{
+  font-size:20px;
+}
+
+.header-img{
+  width:220px;
+  border-radius:20px;
+}
+
+.menu{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.menu button{
+  background:white;
+  color:#003366;
+  border:none;
+  padding:12px 22px;
+  border-radius:25px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.menu button.active{
+  background:#ff004c;
+  color:white;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.match-card{
+  background:white;
+  color:#111;
+  border-radius:18px;
+  padding:15px;
+  margin-bottom:15px;
+}
+
+.match-info{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:12px;
+  font-weight:bold;
+}
+
+.match-teams{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.team{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.flag{
+  width:40px;
+}
+
+.input-goals{
+  width:55px;
+  height:45px;
+  text-align:center;
+  border:2px solid #0077ff;
+  border-radius:10px;
+  font-size:22px;
+}
+
+.real-result-zone{
+  margin-top:10px;
+  background:#fff7d8;
+  padding:10px;
+  border-radius:10px;
+  color:#333;
+}
+
+.score-box{
+  background:white;
+  color:#111;
+  padding:20px;
+  border-radius:15px;
+  max-width:500px;
+}
+
+.calc-btn{
+  margin-top:20px;
+  padding:15px 25px;
+  border:none;
+  border-radius:20px;
+  background:#ff004c;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
